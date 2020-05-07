@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="search">
+            <form action="/search" method="post">
+                <input type="text" class="search__input" id="search" autocomplete="off" name="text"/>
+                <input type="submit" style="visibility:hidden;"/>
+            </form>
+        </div>
+        {% if data %}
+        <div class="row">
+        {% endif %}
+        {% for poke in data %}
+            <div class="col-lg-3">
+                <article class="card" style="border: 0px;" id={{ poke.id }} data-card>
+                    <header class="card__header">
+                        <h2 class="card__heading">{{ poke.name}}</h2>
+                        <p class="card__number">Nr: {{ poke.number }}</p>
+                    </header>
+                    <img class="card__image" src="{{ poke.image_url }}"/>
+                    <p class="card__description"><span class="bold">Supertype:</span> {{ poke.supertype }}</p>
+                    <p class="card__description">
+                    <span class="bold">Subtype:</span> {{ poke.subtype }}</p>
+                    <p class="card__description">
+                    <span class="bold">Rarity:</span> {{ poke.rarity }}</p>
+                </article>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <footer class="catalog__footer" id="footer">
+        <form action="/more">
+            <center><input class="catalog__button" type="submit" value="Load"></center>
+        </form>
+    </footer>
+<script>
+     document.getElementById('footer').scrollIntoView();
+</script>
+{% endblock %}
